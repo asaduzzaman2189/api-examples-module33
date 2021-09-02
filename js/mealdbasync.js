@@ -19,9 +19,15 @@ const searchFood = async () => {
         //     .then(res => res.json())
         //     .then(data => displaySearchResult(data.meals));
 
-        const res = await fetch(url);
-        const data = await res.json();
-        displaySearchResult(data.meals);
+        //error dekhate caile try er vitore dite hobe ar vul hole catch e error dekhave
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            displaySearchResult(data.meals);
+        }
+        catch (error) {
+            console.log(error);
+        }
 
     }
 }

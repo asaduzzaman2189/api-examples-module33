@@ -1,4 +1,6 @@
 
+//display none message
+document.getElementById('error-message').style.display = 'none';
 
 const searchFood = () => {
     const searchField = document.getElementById('search-field');
@@ -6,17 +8,24 @@ const searchFood = () => {
     //clear data
     searchField.value = '';
 
+    // empty input nile 
     if (searchText == '') {
         // eta korle faka search korle ar kichu dekhabena. 
         //homework- please write something to display
     }
     else {
-        //load data
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
+        //load data- এখানে 1 এর জায়গায় 91 দেয়া আছে error দেখানোর জন্য আর .catch(error => displayError(error)) যোগ করা হয়েছে শেষে। 
+        const url = `https://www.themealdb.com/api/json/v1/91/search.php?s=${searchText}`;
+
         fetch(url)
             .then(res => res.json())
-            .then(data => displaySearchResult(data.meals));
+            .then(data => displaySearchResult(data.meals))
+            .catch(error => displayError(error));
     }
+}
+
+const displayError = error => {
+    document.getElementById('error-message').style.display = 'block';
 }
 
 const displaySearchResult = meals => {
