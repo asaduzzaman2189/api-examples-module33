@@ -1,21 +1,28 @@
 
 
-const searchFood = () => {
+const searchFood = async () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     //clear data
     searchField.value = '';
 
     if (searchText == '') {
-        // eta korle faka search korle ar kichu dekhabena. 
+        // eta korle faka search korle ar kichu dekhabena.
         //homework- please write something to display
     }
     else {
         //load data
         const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => displaySearchResult(data.meals));
+
+
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => displaySearchResult(data.meals));
+
+        const res = await fetch(url);
+        const data = await res.json();
+        displaySearchResult(data.meals);
+
     }
 }
 
@@ -28,12 +35,11 @@ const displaySearchResult = meals => {
     //2. search clear item
     searchResult.textContent = '';
 
+    //home work
     // if (meals.length == 0) {
     // searchResult.innerHTML = `
     // <h3 class="text-center">Oops!Nothing found...</h3>
     // `;
-    //home work
-
 
     meals.forEach(meal => {
         // console.log(meal);
@@ -52,16 +58,26 @@ const displaySearchResult = meals => {
     });
 }
 
-const loadMealDetail = mealId => {
+const loadMealDetail = async mealId => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayMealDetail(data.meals[0]));
+
+    // fetch(url)
+    //     .then(res => res.json())
+    //     .then(data => displayMealDetail(data.meals[0]));
+
+    // or 
+    const res = await fetch(url);
+    const data = await res.json();
+    displayMealDetail(data.meals[0]);
 }
 
 const displayMealDetail = meal => {
-    console.log(meal);
-    const mealDetail = document.getElementById('meal-details');
+    // console.log(meal);
+    const mealDetails = document.getElementById('meal-details');
+
+    //clear korle sekhane shudhu ektai display korbe, clear na korle sobgulo serial onujayi thakbe eksathe. 
+    mealDetails.textContent = '';
+
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
@@ -72,6 +88,6 @@ const displayMealDetail = meal => {
             <a href="${meal.strYoutube}" class="btn btn-primary">Go somewhere</a>
         </div>
     `;
-    mealDetail.appendChild(div);
+    mealDetails.appendChild(div);
 }
 
