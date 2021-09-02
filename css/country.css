@@ -1,3 +1,9 @@
+#countries{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+/* এটা countries এর ভিতরের div js দিয়ে তৈরি করা হয়েছে।  */
 .country{
     border: 2px solid tomato;
     margin:10px;
